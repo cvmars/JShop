@@ -1,12 +1,11 @@
 <#import "/manage/tpl/pageBase.ftl" as page>
 <@page.pageBase currentMenu="商品管理">
-<form action="${basepath}/manage/product" id="form" name="form" namespace="/manage" theme="simple" enctype="multipart/form-data" method="post">
 
+<form action="return false" id="form" name="form" namespace="/manage" theme="simple" enctype="multipart/form-data" method="post">
 	<span id="pifeSpan" class="input-group-addon" style="display:none">${systemSetting().imageRootPath}</span>
 	<input type="hidden" value="${e.id!""}" id="productID"/>
 	<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
-
-		<div style="text-align: center;">
+	<div style="text-align: center;">
 			<div id="updateMsg"><font color='red'>${updateMsg!""}</font></div>
 			<#if e.id??>
                 商品ID：<span class="badge badge-success">${e.id!""}</span>
@@ -32,12 +31,13 @@
                 <a target="_blank" href="${basepath}/freemarker/create?method=staticProductByID&id=${e.id!""}" class="btn btn-warning">
                     <i class="icon-refresh icon-white"></i> 静态化</a>
             <#else>
+            	<script></script>
                 <button method="insert" class="btn btn-success">
                     <i class="icon-ok icon-white"></i> 新增
                 </button>
 			</#if>
 			
-<!-- 			<a href="selectList?init=y" class="btn btn-inverse">返回</a> -->
+			<!--<a href="selectList?init=y" class="btn btn-inverse">返回</a> -->
 		</div>
 		
 		<div id="tabs">
@@ -101,10 +101,10 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">主图</label>
                         <div class="col-md-10">
-                            <input type="button" name="filemanager" value="浏览图片" class="btn btn-success"/>
                             <input type="text"  value="${e.picture!""}" name="picture" type="text" id="picture"  ccc="imagesInput" style="width: 600px;"
                                    data-rule="小图;required;maxPicture;"/>
-							<#if e.picture??>
+                            <input type="button" id="uploadify1" name="uploadify" value="浏览图片" class="btn btn-success"/>
+							<#if e.picture?? && e.picture != "">
                                 <a target="_blank" href="${systemSetting().imageRootPath}${e.picture!""}">
                                     <img style="max-width: 50px;max-height: 50px;" alt="" src="${systemSetting().imageRootPath}${e.picture!""}">
                                 </a>
@@ -216,7 +216,7 @@
 						<tr style="background-color: #dff0d8">
 							<th width="20"><input type="checkbox" id="firstCheckbox" /></th>
 							<th>图片地址</th>
-		<!-- 					<th>设为封面</th> -->
+							<!--<th>设为封面</th> -->
 						</tr>
                         <#if e.imagesList??>
                             <#list e.imagesList as item>
@@ -241,10 +241,10 @@
 					<tr>
 						<td>
                             <input id="uploadify" name="uploadify" value="添加" class="btn btn-warning" type="button"/></td>
-					</tr>
+                    </tr>
 					<tr id="firstTr" style="display:none">
 						<td>
-								<#--<input type="button" name="filemanager" value="浏览图片" class="btn btn-warning"/>-->
+								<#--<input type="button" name="" value="浏览图片" class="btn btn-warning"/>-->
 									<img name="img"  style="width:50px;height:50px;max-width: 50px;max-height: 50px;">
 								<input type="text" ccc="imagesInput" name="images" style="width: 260px;" readonly="readonly"/>
 						</td>
@@ -503,23 +503,49 @@ KindEditor.ready(function(K) {
 	 
 	 <script type="text/javascript">
 	$(document).ready(function() {
-	
 		ajaxLoadImgList();
-		var url = '${basepath}/common/uploadify.do';
+		var url = '${basepath}/uploadify.do';
 		//alert(url);
-		$("#uploadify").uploadify({
-			//'auto'           : false,
+		$("#uploadify1").uploadify({
+			//'auto'           : true,
            'swf'       	 : '${basepath}/resource/uploadify/uploadify.swf',
            'uploader'       : url,//后台处理的请求
-           'queueID'        : 'fileQueue',//与下面的id对应
+          'queueID'        : 'fileQueue',//与下面的id对应
            //'queueSizeLimit' :100,
-           //'fileTypeDesc'   : 'rar文件或zip文件',
-           //'fileTypeExts' 	 : '*.jpg;*.jpg', //控制可上传文件的扩展名，启用本项时需同时声明fileDesc
-           //'fileTypeExts'   : '*.rar;*.zip', //控制可上传文件的扩展名，启用本项时需同时声明fileDesc  
            
+           	'fileTypeDesc' : '图片文件' , //出现在上传对话框中的文件类型描述
+			'fileTypeExts' : '*.jpg;*.bmp;*.png;*.gif', //控制可上传文件的扩展名，启用本项时需同时声明filedesc
+
+           'multi'          : true,
+           'buttonText'     : '本地上传',
            
-           //'fileTypeDesc' : '图片文件' , //出现在上传对话框中的文件类型描述
-//'fileTypeExts' : '*.jpg;*.bmp;*.png;*.gif', //控制可上传文件的扩展名，启用本项时需同时声明filedesc
+           onUploadSuccess:function(file, data, response){
+				//alert("上传成功,data="+data+",file="+file+",response="+response);      
+//				ajaxLoadImgList();
+			   data = $.parseJSON(data);
+			   if(data.error == '1') {
+				   alert("上传失败：\n失败原因:" + data.msg);
+			   } else {
+					var $tr = $("#firstTr").clone();
+				   $tr.find("img[name=img]").attr("src", "${systemSetting().imageRootPath}" + data.filePath);
+				   $tr.find(":input[name=images]").val(data.filePath);
+				   $("#firstTr").parent().append($tr);
+				   $tr.show();
+			   }
+           },
+           onUploadError:function(file, errorCode, errorMsg) {
+        	   alert("上传失败,data="+data+",file="+file+",response="+response);   
+           }
+	 	});
+	 	
+		$("#uploadify").uploadify({
+			//'auto'           : true,
+           'swf'       	 : '${basepath}/resource/uploadify/uploadify.swf',
+           'uploader'       : url,//后台处理的请求
+          'queueID'        : 'fileQueue',//与下面的id对应
+           //'queueSizeLimit' :100,
+           'fileTypeDesc' : '图片文件' , //出现在上传对话框中的文件类型描述
+			'fileTypeExts' : '*.jpg;*.bmp;*.png;*.gif', //控制可上传文件的扩展名，启用本项时需同时声明filedesc
 
            'multi'          : true,
            'buttonText'     : '本地上传',

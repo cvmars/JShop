@@ -12,14 +12,14 @@
            http://www.springframework.org/schema/tx 
            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
+	<!-- classpath：只会到你的class路径中查找找文件。-->
+	<!-- classpath*：不仅包含class路径，还包括jar文件中（class路径）进行查找。 -->
     <import resource="classpath*:spring/applicationContext-dao.xml"/>
     <import resource="classpath*:spring/applicationContext-base.xml"/>
     <import resource="classpath*:spring/applicationContext-cache.xml"/>
     <import resource="classpath*:spring/manage/applicationContext-manage.xml"/>
     <import resource="classpath*:spring/front/applicationContext-front.xml"/>
 	<!-- spring-services -->
-	<!--<import resource="classpath*:spring/manage/spring-services.xml"/>-->
-	<!--<import resource="classpath*:spring/front/spring-services.xml"/>-->
 	<!--<import resource="classpath*:spring/manage/spring-services-task.xml"/>-->
 
 </beans>
