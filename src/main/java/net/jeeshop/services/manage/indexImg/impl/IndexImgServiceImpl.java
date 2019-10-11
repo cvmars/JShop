@@ -18,11 +18,11 @@ import javax.annotation.Resource;
 /**
  * @author huangf
  */
-@Service("indexImgServiceManage")
+@Service("manageIndexImgServiceImpl")
 public class IndexImgServiceImpl extends ServersManager<IndexImg, IndexImgDao> implements
 		IndexImgService {
 
-    @Resource(name = "indexImgDaoManage")
+    @Resource(name = "manageIndexImgDaoImpl")
     @Override
     public void setDao(IndexImgDao indexImgDao) {
         this.dao = indexImgDao;

@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 /**
  * @author huangf
  */
-@Repository("indexImgDaoManage")
+@Repository("manageIndexImgDaoImpl")
 public class IndexImgDaoImpl implements IndexImgDao {
 
     @Resource

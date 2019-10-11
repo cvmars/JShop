@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
 import org.apache.commons.lang.StringUtils;
@@ -18,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -36,12 +39,12 @@ import net.jeeshop.web.util.RequestHolder;
  * @author huangfei
  * 
  */
-@Component
+@Service
 public class FreemarkerHelper {
 	private static final Logger logger = LoggerFactory.getLogger(FreemarkerHelper.class);
-	@Autowired
+	@Resource(name="frontProductServiceImpl")
 	private ProductService productService;
-	@Autowired
+	@Resource(name="frontNewsServiceImpl")
 	private NewsService newsService;
 
 	/**

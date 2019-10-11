@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     
     <!-- 自动注册action -->
-    <context:component-scan base-package="net.jeeshop.web.action" />
+    <context:component-scan base-package="net.jeeshop.web.action,net.jeeshop.core.freemarker.front" />
 
     <!-- 在Spring MVC上下文中定义一个DefaultServletHttpRequestHandler，
 	    它会像一个检查员，对进入DispatcherServlet的URL进行筛查，

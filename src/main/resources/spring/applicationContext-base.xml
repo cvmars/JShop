@@ -9,5 +9,4 @@
 	<bean id="baseDao" class="net.jeeshop.core.dao.BaseDao">
 		<property name="sqlSessionFactory" ref="sessionFactory"/>
 	</bean>
-    <bean id="freemarkerHelper" class="net.jeeshop.core.freemarker.front.FreemarkerHelper"/>
 </beans>

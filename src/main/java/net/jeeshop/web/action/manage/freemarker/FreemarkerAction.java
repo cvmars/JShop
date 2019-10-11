@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.jeeshop.core.freemarker.front.FreemarkerHelper;
 import net.jeeshop.web.util.RequestHolder;
 
+import javax.annotation.Resource;
+
 /**
  * 网站会员action
  * 
@@ -27,16 +29,9 @@ import net.jeeshop.web.util.RequestHolder;
 @RequestMapping("freemarker")
 public class FreemarkerAction {
 	private static final Logger logger = LoggerFactory.getLogger(FreemarkerAction.class);
+
 	@Autowired
 	private FreemarkerHelper freemarkerHelper;
-
-	public FreemarkerHelper getFreemarkerHelper() {
-		return freemarkerHelper;
-	}
-
-	public void setFreemarkerHelper(FreemarkerHelper freemarkerHelper) {
-		this.freemarkerHelper = freemarkerHelper;
-	}
 
 	@RequestMapping("toIndex")
 	public String toIndex() {

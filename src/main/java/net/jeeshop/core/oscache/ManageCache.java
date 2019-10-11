@@ -37,17 +37,17 @@ public class ManageCache {
 	/**
 	 * manage后台
 	 */
-    @Resource(name = "orderServiceManage")
+    @Resource(name = "manageOrderServiceImpl")
 	private OrderService orderService;
-    @Resource(name = "productServiceManage")
+    @Resource(name = "manageProductServiceImpl")
 	private ProductService productService;
-    @Resource(name = "commentServiceManage")
+    @Resource(name = "manageCommentServiceImpl")
 	private CommentService commentService;
-    @Resource(name = "areaServiceManage")
+    @Resource(name = "manageAreaServiceImpl")
 	private AreaService areaService;
-    @Resource(name = "taskServiceManage")
+    @Resource(name = "manageTaskServiceImpl")
 	private TaskService taskService;
-    @Resource(name = "ossServiceManage")
+    @Resource(name = "manageOssServiceImpl")
 	private OssService ossService;
     @Autowired
     private SystemSettingService systemSettingService;

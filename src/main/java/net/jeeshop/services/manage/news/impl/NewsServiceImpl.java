@@ -18,10 +18,10 @@ import javax.annotation.Resource;
 /**
  * @author huangf
  */
-@Service("newsServiceManage")
+@Service("manageNewsServiceImpl")
 public class NewsServiceImpl extends ServersManager<News, NewsDao> implements
 		NewsService {
-    @Resource(name = "newsDaoManage")
+    @Resource(name = "manageNewsDaoImpl")
     @Override
     public void setDao(NewsDao newsDao) {
         this.dao = newsDao;

@@ -68,7 +68,7 @@ public class UserAction extends BaseController<User> {
 	private RoleService roleService;
 	@Autowired
 	private MenuService menuService;
-    @Resource(name = "systemlogServiceManage")
+    @Resource(name = "manageSystemlogServiceImpl")
 	private SystemlogService systemlogService;
     @Resource
 	private ManageCache manageCache;
