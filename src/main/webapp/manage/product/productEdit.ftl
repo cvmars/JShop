@@ -1,7 +1,7 @@
 <#import "/manage/tpl/pageBase.ftl" as page>
 <@page.pageBase currentMenu="商品管理">
 
-<form action="return false" id="form" name="form" namespace="/manage" theme="simple" enctype="multipart/form-data" method="post">
+<form action="${basepath}/manage/prod225uct/" id="form" name="form" namespace="/manage" theme="simple" enctype="multipart/form-data" method="post">
 	<span id="pifeSpan" class="input-group-addon" style="display:none">${systemSetting().imageRootPath}</span>
 	<input type="hidden" value="${e.id!""}" id="productID"/>
 	<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
@@ -101,9 +101,9 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">主图</label>
                         <div class="col-md-10">
+							<input type="button" id="uploadify1" name="uploadify" value="浏览图片" class="btn btn-success"/>
                             <input type="text"  value="${e.picture!""}" name="picture" type="text" id="picture"  ccc="imagesInput" style="width: 600px;"
                                    data-rule="小图;required;maxPicture;"/>
-                            <input type="button" id="uploadify1" name="uploadify" value="浏览图片" class="btn btn-success"/>
 							<#if e.picture?? && e.picture != "">
                                 <a target="_blank" href="${systemSetting().imageRootPath}${e.picture!""}">
                                     <img style="max-width: 50px;max-height: 50px;" alt="" src="${systemSetting().imageRootPath}${e.picture!""}">
@@ -505,17 +505,14 @@ KindEditor.ready(function(K) {
 	$(document).ready(function() {
 		ajaxLoadImgList();
 		var url = '${basepath}/uploadify.do';
-		//alert(url);
 		$("#uploadify1").uploadify({
-			//'auto'           : true,
+			'auto'           : false,
            'swf'       	 : '${basepath}/resource/uploadify/uploadify.swf',
            'uploader'       : url,//后台处理的请求
           'queueID'        : 'fileQueue',//与下面的id对应
            //'queueSizeLimit' :100,
-           
            	'fileTypeDesc' : '图片文件' , //出现在上传对话框中的文件类型描述
 			'fileTypeExts' : '*.jpg;*.bmp;*.png;*.gif', //控制可上传文件的扩展名，启用本项时需同时声明filedesc
-
            'multi'          : true,
            'buttonText'     : '本地上传',
            
@@ -537,37 +534,7 @@ KindEditor.ready(function(K) {
         	   alert("上传失败,data="+data+",file="+file+",response="+response);   
            }
 	 	});
-	 	
-		$("#uploadify").uploadify({
-			//'auto'           : true,
-           'swf'       	 : '${basepath}/resource/uploadify/uploadify.swf',
-           'uploader'       : url,//后台处理的请求
-          'queueID'        : 'fileQueue',//与下面的id对应
-           //'queueSizeLimit' :100,
-           'fileTypeDesc' : '图片文件' , //出现在上传对话框中的文件类型描述
-			'fileTypeExts' : '*.jpg;*.bmp;*.png;*.gif', //控制可上传文件的扩展名，启用本项时需同时声明filedesc
 
-           'multi'          : true,
-           'buttonText'     : '本地上传',
-           
-           onUploadSuccess:function(file, data, response){
-				//alert("上传成功,data="+data+",file="+file+",response="+response);      
-//				ajaxLoadImgList();
-			   data = $.parseJSON(data);
-			   if(data.error == '1') {
-				   alert("上传失败：\n失败原因:" + data.msg);
-			   } else {
-					var $tr = $("#firstTr").clone();
-				   $tr.find("img[name=img]").attr("src", "${systemSetting().imageRootPath}" + data.filePath);
-				   $tr.find(":input[name=images]").val(data.filePath);
-				   $("#firstTr").parent().append($tr);
-				   $tr.show();
-			   }
-           },
-           onUploadError:function(file, errorCode, errorMsg) {
-        	   alert("上传失败,data="+data+",file="+file+",response="+response);   
-           }
-	 	});
 	});
 	
 	//ajax加载内容图片列表
@@ -641,7 +608,6 @@ KindEditor.ready(function(K) {
 			  //$("#showMessage").append("删除成功！").fadeTo(2000, 1, function(){
 				//   $("#showMessage").html("").hide();
 			  //});
-			  
 		  },
 		  dataType: "text",
 		  error:function(){
