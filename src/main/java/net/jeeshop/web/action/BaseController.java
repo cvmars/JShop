@@ -81,9 +81,6 @@ public abstract class BaseController<E extends PagerModel> {
     @RequestMapping("toEdit")
     public String toEdit(@ModelAttribute("e") E e, ModelMap model) throws Exception {
         e = getService().selectOne(e);
-//		if(e==null || StringUtils.isBlank(e.getId())){
-//			throw new NullPointerException("");
-//		}
         model.addAttribute("e", e);
         return page_toEdit;
     }
@@ -122,16 +119,6 @@ public abstract class BaseController<E extends PagerModel> {
      */
     @RequestMapping(value = "deletes", method = RequestMethod.POST)
     public String deletes(HttpServletRequest request, String[] ids, @ModelAttribute("e") E e, RedirectAttributes flushAttrs) throws Exception {
-//		User user = (User) getSession().getAttribute(Global.USER_INFO);
-//		if(user==null){
-//			throw new NullPointerException();
-//		}
-//		if(user.getDbPrivilegeMap()!=null && user.getDbPrivilegeMap().size()>0){
-//			if(user.getDbPrivilegeMap().get(Container.db_privilege_delete)==null){
-//				throw new PrivilegeException(Container.db_privilege_delete_error);
-//			}
-//		}
-
         getService().deletes(ids);
         addMessage(flushAttrs, "操作成功！");
         return "redirect:selectList";
@@ -145,16 +132,6 @@ public abstract class BaseController<E extends PagerModel> {
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public String update(HttpServletRequest request, @ModelAttribute("e") E e, RedirectAttributes flushAttrs) throws Exception {
-//		User user = (User) getSession().getAttribute(Global.USER_INFO);
-//		if(user==null){
-//			throw new NullPointerException();
-//		}
-//		if(user.getDbPrivilegeMap()!=null && user.getDbPrivilegeMap().size()>0){
-//			if(user.getDbPrivilegeMap().get(Container.db_privilege_update)==null){
-//				throw new PrivilegeException(Container.db_privilege_update_error);
-//			}
-//		}
-
         getService().update(e);
         insertAfter(e);
         addMessage(flushAttrs, "操作成功！");
@@ -178,43 +155,11 @@ public abstract class BaseController<E extends PagerModel> {
      */
     @RequestMapping(value = "insert",method = RequestMethod.POST)
     public String insert(HttpServletRequest request, @ModelAttribute("e") E e, RedirectAttributes flushAttrs) throws Exception {
-//		User user = (User) getSession().getAttribute(Global.USER_INFO);
-//		if(user==null){
-//			throw new NullPointerException();
-//		}
-//		if(user.getDbPrivilegeMap()!=null && user.getDbPrivilegeMap().size()>0){
-//			if(user.getDbPrivilegeMap().get(Container.db_privilege_insert)==null){
-//				throw new PrivilegeException(Container.db_privilege_insert_error);
-//			}
-//		}
-
         getService().insert(e);
         insertAfter(e);
         addMessage(flushAttrs, "操作成功！");
         return "redirect:selectList";
     }
-
-    /**
-     * 跳转到编辑页面
-     *
-     * @return
-     * @throws Exception
-     */
-//    @RequestMapping("toEdit")
-//    public String toEdit(@ModelAttribute("e") E e, ModelMap model) throws Exception {
-//        e = getService().selectOne(e);
-////		if(e==null || StringUtils.isBlank(e.getId())){
-////			throw new NullPointerException("");
-////		}
-//        return toEdit;
-//    }
-
-//    @RequestMapping("toAdd")
-//    public String toAdd(@ModelAttribute("e") E e, ModelMap model) throws Exception {
-//        e.clear();
-//        return toAdd;
-//    }
-
 
     @RequestMapping("loadData")
     @ResponseBody

@@ -1,30 +1,31 @@
 <#import "/manage/tpl/pageBase.ftl" as page>
 <@page.pageBase currentMenu="系统设置">
 <style type="text/css">
-input,textarea{
-	width: 80%;
-}
+    textarea{
+        width: 80%;
+    }
 
-.leftTd{
-	text-align: right;width: 100px
-}
+    .leftTd{
+        text-align: right;width: 100px
+    }
 
-.rightTd{
-	text-align: left;
-}
+    .rightTd{
+        text-align: left;
+    }
 </style>
+
 <script type="text/javascript">
-$(function() {
-	$( "#tabs" ).tabs({
-		//event: "mouseover"
-	});
-	changeStyle();
-});
-function changeStyle(){
-	var _png = "${basepath}/resource/bootstrap3.3.4/style/"+$("#style").val()+".png";
-	$("#styleImg").attr("src",_png);
-	$("#ceshiA").attr("href",$("#base_input").val()+$("#style").val());
-}
+    $(function() {
+        $( "#tabs" ).tabs({
+            //event: "mouseover"
+        });
+        changeStyle();
+    });
+    function changeStyle(){
+        var _png = "${basepath}/resource/bootstrap3.3.4/style/"+$("#style").val()+".png";
+        $("#styleImg").attr("src",_png);
+        $("#ceshiA").attr("href",$("#base_input").val()+$("#style").val());
+    }
 </script>
 </head>
 
@@ -264,78 +265,42 @@ function changeStyle(){
 </form>
 <input value="${basepath}/?style=" id="base_input" style="display: none;"/>
 <script>
-	var qqHelpHtml;
+	var editor;
 	KindEditor.ready(function(K) {
-		qqHelpHtml = K.create('textarea[name="qqHelpHtml"]', {
+		editor = K.create('textarea[name="qqHelpHtml"]', {
 			allowFileManager : true,
             uploadJson : '${basepath}/editor/upload',
             fileManagerJson : '${basepath}/editor/fileManager'
 		});
-		K('input[name=getHtml]').click(function(e) {
-			alert(editor.html());
-		});
-		K('input[name=isEmpty]').click(function(e) {
-			alert(editor.isEmpty());
-		});
-		K('input[name=getText]').click(function(e) {
-			alert(editor.text());
-		});
-		K('input[name=selectedHtml]').click(function(e) {
-			alert(editor.selectedHtml());
-		});
-		K('input[name=setHtml]').click(function(e) {
-			editor.html('<h3>Hello KindEditor</h3>');
-		});
-		K('input[name=setText]').click(function(e) {
-			editor.text('<h3>Hello KindEditor</h3>');
-		});
-		K('input[name=insertHtml]').click(function(e) {
-			editor.insertHtml('<strong>插入HTML</strong>');
-		});
-		K('input[name=appendHtml]').click(function(e) {
-			editor.appendHtml('<strong>添加HTML</strong>');
-		});
-		K('input[name=clear]').click(function(e) {
-			editor.html('');
-		});
-	});
-</script>
 
-<script>
-KindEditor.ready(function(K) {
-	var editor = K.editor({
-		fileManagerJson : '${basepath}/editor/fileManager'
-	});
-	K('input[name=filemanager]').click(function() {
-		var imagesInputObj = $(this).parent().children("input[ccc=imagesInput]");
-		editor.loadPlugin('filemanager', function() {
-			editor.plugin.filemanagerDialog({
-				viewType : 'VIEW',
-				dirName : 'image',
-				clickFn : function(url, title) {
-					//K('#picture').val(url);
-					//alert(url);
-					imagesInputObj.val(url);
-					editor.hideDialog();
-					clearRootImagePath(imagesInputObj);//$("#picture"));
-				}
+		K('input[name=filemanager]').click(function() {
+			var imagesInputObj = $(this).parent().children("input[ccc=imagesInput]");
+			editor.loadPlugin('filemanager', function() {
+				editor.plugin.filemanagerDialog({
+					viewType : 'VIEW',
+					dirName : 'image',
+					clickFn : function(dir,url) {
+						//K('#picture').val(url);
+						alert(url);
+						imagesInputObj.val(url);
+						editor.hideDialog();
+						clearRootImagePath(imagesInputObj);//$("#picture"));
+					}
+				});
 			});
 		});
 	});
-	
-});
 
-function deleteImageByImgPaths(obj){
-	if ($("input:checked").size() == 0) {
-		alert("请选择要删除的图片！");
+	function deleteImageByImgPaths(obj){
+		if ($("input:checked").size() == 0) {
+			alert("请选择要删除的图片！");
+			return false;
+		}
+		if(confirm("确定删除选择的图片吗?")){
+			return true;
+		}
 		return false;
 	}
-	if(confirm("确定删除选择的图片吗?")){
-		return true;
-	}
-	return false;
-	
-}
 </script>
 
 </@page.pageBase>

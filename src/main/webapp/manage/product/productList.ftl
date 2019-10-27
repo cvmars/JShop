@@ -141,8 +141,8 @@
 						value="${item.id!""}" /></td>
 					<td nowrap="nowrap">&nbsp;${item.id!""}</td>
 					<td >
-						<#if item.giftID??>
-							【赠品】
+						<#if item.giftID?? && item.giftID != "">
+							【送赠品】
 						</#if>
 						<a class="product-name" title="${item.name}" href="toEdit?id=${item.id}">${item.name!""}</a>
 					</td>

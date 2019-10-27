@@ -65,9 +65,9 @@
 
     <script type="text/javascript" src="${staticpath}/My97DatePicker/WdatePicker.js"></script>
 
-    <link rel="stylesheet" href="${staticpath}/kindeditor-4.1.7/themes/default/default.css" />
-    <script charset="utf-8" src="${staticpath}/kindeditor-4.1.7/kindeditor-min.js"></script>
-    <script charset="utf-8" src="${staticpath}/kindeditor-4.1.7/lang/zh_CN.js"></script>
+    <link rel="stylesheet" href="${staticpath}/kindeditor/themes/default/default.css" />
+    <script charset="utf-8" src="${staticpath}/kindeditor/kindeditor-all-min.js"></script>
+    <script charset="utf-8" src="${staticpath}/kindeditor/lang/zh-CN.js"></script>
 
     <!-- datatables -->
     <link rel="stylesheet" href="${staticpath}/datatables/css/jquery.dataTables.css" />

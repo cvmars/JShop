@@ -171,8 +171,7 @@ public class ImageUtils {
 		if (!srcFile.isFile())
 			throw new IOException(srcFile
 					+ " is not image file error in CreateThumbnail!");
-		
-//		getExtensionName(srcFile.get)
+
 		File ThF = new File(dest, newFileName +"."+suffix);
 		BufferedImage Bi = ImageIO.read(srcFile);
 		Image Itemp = Bi.getScaledInstance(newWidth, newHeight, Bi.SCALE_REPLICATE);
@@ -243,14 +242,11 @@ public class ImageUtils {
 	  */
 	 public static void ratioZoom2(File src,File dist,double ratio0)
 	 {
-	  try
-	  {
-//	   File srcfile = new File(src);
+	  	try
+	  	{
 	   if(!src.exists())
 	   {
-//	    System.out.println("文件不存在");
 		   throw new NullPointerException("文件不存在");
-//	    return;
 	   }
 	   BufferedImage image = ImageIO.read(src);
 	   

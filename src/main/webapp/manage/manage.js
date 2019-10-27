@@ -14,7 +14,6 @@ function clearRootImagePath(picInput){
 /**
  * 后台脚本JS
  */
-
 $(function(){
 	//后台查询页面 全选/全不选 功能	jQuery v1.9
 	$("#firstCheckbox").on("click",function(){
@@ -33,7 +32,7 @@ $(function(){
 	});
 	//onclick="doSubmitFuncWhenButton(this)"
 	
-	//通用按钮的提交表单事件
+	//通用按钮的提交表单事件，提交前通过jquery校验表单
 	$("form").on("valid.form", function(e, form){
         var buttonMethod = typeof(form.buttonMethod)=="undefined" ? "" : form.buttonMethod;
 		var _formAction = $(form).attr("action");
@@ -116,6 +115,7 @@ function submitIDs(obj,tip){
 //不需要任何验证的提交    
 function submitNotValid2222(obj){
 	createMark();
+	alert($(obj).attr("method"));
 	console.log("submitNotValid2222...");
 	var _form = $("form");
 	_form.attr("action",$(obj).attr("method"));

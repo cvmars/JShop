@@ -45,7 +45,6 @@ public class Uploadify extends HttpServlet {
 		// 名称 界面编码 必须 和request 保存一致..否则乱码
 		String name = request.getParameter("name");
 		String id = request.getParameter("id"); // 内容的ID,必须先添加内容，然后才能上传图片
-//        String newfileName = name;    
 
 		String firstFileName = "";
 		// 获得容器中上传文件夹所在的物理路径
@@ -100,7 +99,6 @@ public class Uploadify extends HttpServlet {
 			return;
 		}
 		response.getWriter().write("1");
-
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

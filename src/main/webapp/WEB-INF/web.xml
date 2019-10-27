@@ -64,7 +64,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Uploadify</servlet-name>
-        <url-pattern>/uploadify.do</url-pattern>
+        <url-pattern>/uploadify</url-pattern>
     </servlet-mapping>
 
     <servlet>
