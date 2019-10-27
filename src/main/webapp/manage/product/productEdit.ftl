@@ -68,7 +68,7 @@
                         editorProduct.plugin.imageDialog({
                             showRemote: false,
                             uploadJson: '${basepath}/editor/upload',
-                            clickFn: function (url, title, width, height, border, align) {
+                            clickFn: function (url) {
                                 K('#imageUrl').val(url);
                                 editorProduct.hideDialog();
                                 //动态向表格imagesTable的最后添加一行
@@ -76,9 +76,9 @@
                                 var row = tableObj.insertRow();
                                 row.innerHTML = '<tr>' +
                                     '<td>' +
-                                    '<a href="${basepath}' + url + '" target="_blank">' +
+                                    '<a href="'+imageRootPath + url + '" target="_blank">' +
                                     '<img style="max-width: 100px;max-height: 100px;" alt=""' +
-                                    'src="${basepath}' + url + '">' +
+                                    'src="'+imageRootPath +  url + '">' +
                                     '</a>' +
                                     '</td>' +
                                     '</tr>';

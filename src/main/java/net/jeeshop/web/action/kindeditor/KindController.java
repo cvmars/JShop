@@ -36,16 +36,10 @@ public class KindController {
     public String uploadFile(@RequestParam(required = true, value = "imgFile") MultipartFile file,
                              @RequestParam(required = false) String dir, HttpSession session) {
         //文件保存路径（网站的相对路径，配置文件设置，这里默认为attached）
-        String relativePath = SystemManager.getInstance().getProperty("file.upload.path");
-        String savePath = servletContext.getRealPath(relativePath);
+        String rootPath = servletContext.getRealPath(SystemManager.getInstance().getProperty("file.upload.path"));
 
         //文件URL
-        String saveUrl = "";
-        if(!saveUrl.endsWith("/")){
-            saveUrl += relativePath;
-        }else {
-            saveUrl = saveUrl.substring(0,saveUrl.length()-1)+relativePath;
-        }
+        String rootUrl = "/";
 
         //定义允许上传的文件扩展名，支持image，flash，音频，视频，文档和压缩包等。
         HashMap<String, String> extMap = new HashMap<String, String>();
@@ -58,7 +52,7 @@ public class KindController {
         session.setAttribute("ajax_upload", 1);
 
         //检查文件保存路径是否存在
-        File uploadDir = new File(savePath);
+        File uploadDir = new File(rootPath);
         if (!uploadDir.exists()) {
             return (getError("上传目录不存在。"));
         }
@@ -81,9 +75,9 @@ public class KindController {
         }
 
         //在网站创建文件类型文件夹
-        savePath += dirName + "/";
-        saveUrl += dirName + "/";
-        File saveDirFile = new File(savePath);
+        rootPath += dirName + "/";
+        rootUrl += dirName + "/";
+        File saveDirFile = new File(rootPath);
         if (!saveDirFile.exists()) {
             saveDirFile.mkdirs();
         }
@@ -91,9 +85,9 @@ public class KindController {
         //创建时间子文件夹
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String ymd = sdf.format(new Date());
-        savePath += ymd + "/";
-        saveUrl += ymd + "/";
-        File dirFile = new File(savePath);
+        rootPath += ymd + "/";
+        rootUrl += ymd + "/";
+        File dirFile = new File(rootPath);
         if (!dirFile.exists()) {
             dirFile.mkdirs();
         }
@@ -102,15 +96,15 @@ public class KindController {
         String newFileName1 = millis + "_1"+ "." +fileExt;//原图
         try {
             //保存图像到本地
-            File uploadedFile1 = new File(savePath, newFileName1);
+            File uploadedFile1 = new File(rootPath, newFileName1);
             file.transferTo(uploadedFile1);
             logger.debug("newFileName1=" + newFileName1);
 
             //创建缩略图
             String newFileName2 = millis + "_2"+ "." +fileExt;//中图
             String newFileName3 = millis + "_3"+ "." +fileExt;//小图
-            File uploadedFile2 = new File(savePath, newFileName2);
-            File uploadedFile3 = new File(savePath, newFileName3);
+            File uploadedFile2 = new File(rootPath, newFileName2);
+            File uploadedFile3 = new File(rootPath, newFileName3);
 
             logger.debug("newFileName1=" + newFileName1 + ",newFileName2=" + newFileName2 + ",newFileName3=" + newFileName3);
             ImageUtils.ratioZoom2(uploadedFile1, uploadedFile2, Double.valueOf(SystemManager.getInstance().getProperty("product_image_1_w")));
@@ -122,7 +116,7 @@ public class KindController {
 
         JSONObject obj = new JSONObject();
         obj.put("error", 0);
-        obj.put("url", saveUrl + newFileName1);
+        obj.put("url", rootUrl + newFileName1);
         return (obj.toString());
     }
 
@@ -138,9 +132,8 @@ public class KindController {
     @ResponseBody
     public String fileManager(@RequestParam(value = "dir") String dirName, @RequestParam(required = false) String path,
                               @RequestParam(required = false, defaultValue = "name") String order) {
-        SystemSetting systemSetting = SystemManager.getInstance().getSystemSetting();
-        String rootPath = SystemManager.getInstance().getProperty("file.upload.path");
-        String rootUrl = systemSetting.getImageRootPath();
+        String rootPath = servletContext.getRealPath(SystemManager.getInstance().getProperty("file.upload.path"));
+        String rootUrl = SystemManager.getInstance().getSystemSetting().getImageRootPath();
         //图片扩展名
         String[] fileTypes = new String[]{"gif", "jpg", "jpeg", "png", "bmp"};
 
@@ -201,17 +194,7 @@ public class KindController {
                     hash.put("filetype", "");
                 } else if (file.isFile()) {
                     String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-
                     String _fileName = fileName.substring(0, fileName.lastIndexOf("."));
-                    //String fileNameA = _fileName.split("_")[1];
-                    //logger.debug("fileNameA="+fileNameA);
-
-	 				/* if(fileNameA.equals("1") || fileNameA.equals("2")){
-                     //if(addFileMap.get(fileNameA)!=null){
-	 					continue;
-	 				} */
-                    //addFileMap.put(fileNameA, fileNameA);
-
                     hash.put("is_dir", false);
                     hash.put("has_file", false);
                     hash.put("filesize", file.length());

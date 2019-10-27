@@ -23,8 +23,8 @@
 					<input type="button" name="filemanager" value="浏览图片" class="btn btn-warning"/>
 					<input type="text"  value="${e.picture!""}" name="picture"  id="picture" ccc="imagesInput" style="width: 600px;" data-rule="图片地址:required;picture;" />
 					<#if e.picture??>
-						<a target="_blank" href="${systemSetting().imageRootPath}/${e.picture!""}">
-							<img style="max-width: 50px;max-height: 50px;" alt="" src="${systemSetting().imageRootPath}/${e.picture!""}">
+						<a id="imgA" target="_blank" href="${systemSetting().imageRootPath}/${e.picture!""}">
+							<img id="imgImg" style="max-width: 50px;max-height: 50px;" alt="" src="${systemSetting().imageRootPath}/${e.picture!""}">
 						</a>
 					</#if>
 				</td>
@@ -72,11 +72,13 @@ KindEditor.ready(function(K) {
 				viewType : 'VIEW',
 				dirName : 'image',
 				clickFn : function(url, title) {
-					//K('#picture').val(url);
-					//alert(url);
+					var totalUrl = url;
+					document.getElementById("imgA").href = totalUrl;
+					document.getElementById("imgImg").src = totalUrl;
+
+					url = url.substring(url.indexOf('/image'));
 					imagesInputObj.val(url);
 					editor.hideDialog();
-					clearRootImagePath(imagesInputObj);//$("#picture"));
 				}
 			});
 		});

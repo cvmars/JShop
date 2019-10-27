@@ -646,7 +646,7 @@ LOCK TABLES `t_product` WRITE;
 /*!40000 ALTER TABLE `t_product`
     DISABLE KEYS */;
 INSERT INTO `t_product`
-VALUES (10001, '一座城池', '韩寒，一座城池', 123.00, 111.00, '/attached/image/20140304/1393902455326_1.jpg', '2013-10-25 00:33:37',
+VALUES (10001, '一座城池', '韩寒，一座城池', 123.00, 111.00, '/image/20140304/1393902455326_1.jpg', '2013-10-25 00:33:37',
         NULL, NULL, '2014-03-20 17:54:24', 'y', 'y', 30, 2,
         '<img src=\"http://myshopxx.oss.aliyuncs.com/attached/image/20140304/1393902438216_3.jpg\" alt=\"\" /><img src=\"http://myshopxx.oss.aliyuncs.com/attached/image/20140304/1393902455326_3.jpg\" alt=\"\" /><img src=\"http://myshopxx.oss.aliyuncs.com/attached/image/20140304/1393902463373_3.jpg\" alt=\"\" /><img src=\"http://myshopxx.oss.aliyuncs.com/attached/image/20140304/1393902469170_3.jpg\" alt=\"\" />',
         '/jeeshop/attached/image/20130928/20130928233856_374.jpg', NULL, '60', 13, 22, NULL, NULL, NULL, NULL, NULL,
@@ -2753,11 +2753,11 @@ LOCK TABLES `t_index_img` WRITE;
 /*!40000 ALTER TABLE `t_index_img`
     DISABLE KEYS */;
 INSERT INTO `t_index_img`
-VALUES (16, 'TOPOT 2014春装新款休闲加厚衬衣 韩版修身磨毛格子男士长袖衬衫', '/attached/image/20140304/1393898334824_3.jpg', 10, '',
+VALUES (16, 'TOPOT 2014春装新款休闲加厚衬衣 韩版修身磨毛格子男士长袖衬衫', '/image/20140304/1393898334824_3.jpg', 10, '',
         'http://localhost:8080/jeeshop/product/10251.html'),
-       (17, '苹果3', '/attached/image/20140304/1393898353965_3.jpg', 3, '',
+       (17, '苹果3', '/image/20140304/1393898353965_3.jpg', 3, '',
         'http://localhost:8080/jeeshop/product/10253.html'),
-       (18, '小米3', '/attached/image/20140304/1393901989351_3.jpg', 2, '',
+       (18, '小米3', '/image/20140304/1393901989351_3.jpg', 2, '',
         'http://localhost:8080/jeeshop/product/10263.html');
 /*!40000 ALTER TABLE `t_index_img`
     ENABLE KEYS */;
@@ -8442,7 +8442,7 @@ LOCK TABLES `t_pay` WRITE;
 /*!40000 ALTER TABLE `t_pay`
     DISABLE KEYS */;
 INSERT INTO `t_pay`
-VALUES (1, '支付宝担保交易', 'alipayescow', 'xxx', 1, 'y', 'xxx', 'xxx', NULL, '/attached/image/20140616/1402924030591_3.png');
+VALUES (1, '支付宝担保交易', 'alipayescow', 'xxx', 1, 'y', 'xxx', 'xxx', NULL, '/image/20140616/1402924030591_3.png');
 /*!40000 ALTER TABLE `t_pay`
     ENABLE KEYS */;
 UNLOCK TABLES;
